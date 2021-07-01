@@ -229,6 +229,8 @@ function startTimer(time){
             word_input_box.classList.add("disabled");
             next_btn.style.display = "block";
             msg.innerHTML = "time's up!";
+            next_btn_value(que_count);
+
 
         }
     }
