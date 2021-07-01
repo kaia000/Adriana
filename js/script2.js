@@ -10,12 +10,11 @@ const option_list = document.querySelector(".option_list");
 const word_input_box = document.querySelector(".word-input-box");
 const word_submit = quiz_box.querySelector(".word-submit");
 const word_input = quiz_box.querySelector(".word-input");
-const msg = quiz_box.querySelector(".msg");
-
 
 const timeCount = quiz_box.querySelector(".timer .timer_sec");
 const timeLine = quiz_box.querySelector("header .time_line");
 const timeOff = quiz_box.querySelector("header .time_text");
+
 
 
 
@@ -38,7 +37,7 @@ exit_btn.onclick = ()=>{
 continue_btn.onclick = ()=>{
     info_box.classList.remove("activeInfo"); //hide the info box
     quiz_box.classList.add("activeQuiz"); //show the quiz box
-    showQuestions2(0);
+    showQuestions(0);
     queCounter(1);
     startTimer(15);
     startTimerLine(0);
@@ -54,15 +53,36 @@ let timeValue = 15;
 let widthValue = 0;
 let userScore = 0;
 
-
-
 const next_btn = quiz_box.querySelector(".next_btn");
 const result_box = document.querySelector(".result_box");
 const restart_quiz = result_box.querySelector(".buttons .restart");
 const quit_quiz = result_box.querySelector(".buttons .quit");
 
 
+let correctAns = questions[que_count].answer;
+    console.log(correctAns);
 
+/* 원본
+restart_quiz.onclick = ()=>{
+    quiz_box.classList.add("activeQuiz");//show quiz box
+    result_box.classList.remove("activeResult");//hide result box
+    
+    let que_count = 0;
+    let que_numb = 1;
+    let timeValue = 15;
+    let widthValue = 0;
+    let userScore = 0;
+
+    showQuestions(que_count); //calling showQestions function
+    queCounter(que_numb);//passing que_numb value to queCounter
+    clearInterval(counter);//clear counter
+    startTimer(timeValue);//calling startTimer function
+    clearInterval(counterLine);//clear counterLine
+    startTimerLine(widthValue);//calling startTimerLine function
+    next_btn.style.display = "none";//hide the next button
+    timeOff.textContent = "Time Left"; //change the text of timeText to Time Left(Time Off)
+    
+}*/
 
 //실패 아래처럼 수정
 restart_quiz.onclick = ()=>{
@@ -76,49 +96,14 @@ quit_quiz.onclick = ()=>{
 }
 
 
-word_submit.onclick = ()=>{
-    if(que_count < questions.length ){
-        inputAns();
-        next_btn_value(que_count);
 
-        // que_count++;
-        // que_numb++;
-        // showQuestions2(que_count);
-        // queCounter(que_numb);
-        // startTimer(timeValue);
-        // startTimerLine(widthValue);
-
-        clearInterval(counterLine);
-        clearInterval(counter);
-
-        next_btn.style.display = "block";
-        word_input_box.classList.add("disabled");
-
-
-        timeOff.textContent = "Time Left";
-        word_input.value="";
-       
-
-    }
-    else{
-        // clearInterval(counter);
-        // clearInterval(counterLine);
-
-        console.log("Questions completed");
-        
-
-        showResultBox();
-    }
-}
-
+   
 
 next_btn.onclick = ()=>{
     if(que_count < questions.length -1){
-
         que_count++;
         que_numb++;
-        showQuestions2(que_count);
-
+        showQuestions(que_count);
         queCounter(que_numb);
         clearInterval(counter);
         startTimer(timeValue);
@@ -126,68 +111,80 @@ next_btn.onclick = ()=>{
         startTimerLine(widthValue);
         next_btn.style.display = "none";
         timeOff.textContent = "Time Left";
-        word_input.value="";
-        word_input_box.classList.remove("disabled");
-        msg.innerHTML = "Your answer is ..";
-        next_btn_value();
+
 
     }
     else{
         // clearInterval(counter);
         // clearInterval(counterLine);
-
         console.log("Questions completed");
         showResultBox();
     }
 }
-
-
-function next_btn_value(index){
-    if(que_count < questions.length -1){
-        next_btn.innerHTML = "Next Que";
-    }else{
-        next_btn.innerHTML = "Go to Result";
-
+  
+// getting questions and options from array
+function showQuestions(index){
+    const que_text = document.querySelector(".que_text");
+    let que_tag = '<span>'+ questions[index].numb + ". " + questions[index].question +'</span>';
+    let option_tag = '<div class="option"><span>'+ questions[index].options[0] +'</span></div>'
+                    + '<div class="option"><span>'+ questions[index].options[1] +'</span></div>'
+                    + '<div class="option"><span>'+ questions[index].options[2] +'</span></div>'
+                    + '<div class="option"><span>'+ questions[index].options[3] +'</span></div>';
+    que_text.innerHTML = que_tag; 
+    option_list.innerHTML = option_tag;
+    const option = option_list.querySelectorAll(".option");
+    for (let i = 0; i < option.length; i++){
+        option[i].setAttribute("onclick", "optionSelected(this)");
     }
 }
 
+let tickIcon = '<div class="icon tick"><i class="fas fa-check"></i></div>';
+let crossIcon = '<div class="icon cross"><i class="fas fa-times"></i></div>';
 
-function showQuestions2(index){
-    
-    const que_text = document.querySelector(".que_text");
-    let que_tag = '<span>'+ questions[index].numb + ". " + questions[index].question +'</span>';
-    
-    que_text.innerHTML = que_tag; 
-    
-    
-    
-}
 
-function inputAns(answer){
+
+
+    
+      
+function optionSelected(answer){
+    clearInterval(counter);
+    clearInterval(counterLine);
+
+    let userAns = answer.textContent;
     let correctAns = questions[que_count].answer;
-    console.log(correctAns);
+    let allOptions = option_list.children.length;
 
-  
-        if(word_input.value == correctAns){
-            msg.innerHTML = "correct!";
-
-            userScore += 1;
-            console.log(userScore);
-            console.log(correctAns);
-            console.log("Answer is Correct!");
-        }
-    
-        
-        else{
-            console.log("Answer is Wrong!");
-            msg.innerHTML = "wrong..!";
-
-
-        }
-}
+    if(userAns == correctAns){
+        userScore += 1;
+        console.log(userScore);
+        answer.classList.add("correct");
+        console.log("Answer is Correct!");
+        answer.insertAdjacentHTML("beforeend", tickIcon);
+    }
    
+    
+    else{
+        answer.classList.add("incorrect");
+        console.log("Answer is Wrong!");
+        answer.insertAdjacentHTML("beforeend", crossIcon);
 
 
+        //if answers is incorrect then automatically selected correct answer
+        for (let i = 0; i < allOptions; i++){
+            if(option_list.children[i].textContent == correctAns){
+                option_list.children[i].setAttribute("class", "option correct");
+                option_list.children[i].insertAdjacentHTML("beforeend", tickIcon);
+
+            }
+        }
+    }
+
+    //once user selected disabled all options
+    for (let i = 0; i < allOptions; i++){
+        option_list.children[i].classList.add("disabled");
+    }
+    next_btn.style.display = "block";
+}
 
 
 function showResultBox(){
@@ -225,11 +222,20 @@ function startTimer(time){
             timeCount.textContent = "00";
             timeOff.textContent = "Time Off";
 
+            let correctAns = questions[que_count].answer;
+            let allOptions = option_list.children.length;
 
-            word_input_box.classList.add("disabled");
+            for (let i = 0; i < allOptions; i++){
+                if(option_list.children[i].textContent == correctAns){
+                    option_list.children[i].setAttribute("class", "option correct");
+                    option_list.children[i].insertAdjacentHTML("beforeend", tickIcon);
+    
+                }
+            }
+            for (let i = 0; i < allOptions; i++){
+                option_list.children[i].classList.add("disabled");
+            }
             next_btn.style.display = "block";
-            msg.innerHTML = "time's up!";
-
         }
     }
 }

@@ -2,7 +2,7 @@
 let questions = [
     {
         numb: 1,
-        question: "What is your name1?",
+        question: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rerum vel soluta assumenda voluptatem aperiam modi vero excepturi, blanditiis corrupti quisquam?",
         answer: "hodu",
         options: [
                 "ninjin",
@@ -13,7 +13,7 @@ let questions = [
     },
     {
         numb: 2,
-        question: "What is your name2?",
+        question: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rerum vel soluta assumenda voluptatem aperiam modi vero excepturi, blanditiis corrupti quisquam?",
         answer: "hodululu",
         options: [
                 "ninjin",
@@ -24,7 +24,7 @@ let questions = [
     },
     {
         numb: 3,
-        question: "What is your name3?",
+        question: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rerum vel soluta assumenda voluptatem aperiam modi vero excepturi, blanditiis corrupti quisquam?",
         answer: "min",
         options: [
                 "ninjin",
@@ -35,7 +35,7 @@ let questions = [
     },
     {
         numb: 4,
-        question: "What is your name4?",
+        question: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rerum vel soluta assumenda voluptatem aperiam modi vero excepturi, blanditiis corrupti quisquam?",
         answer: "hoho",
         options: [
                 "ninjin",
@@ -46,7 +46,7 @@ let questions = [
     },
     {
         numb: 5,
-        question: "What is your name5?",
+        question: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rerum vel soluta assumenda voluptatem aperiam modi vero excepturi, blanditiis corrupti quisquam?",
         answer: "haha",
         options: [
                 "ninjin",

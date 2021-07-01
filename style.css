@@ -230,12 +230,16 @@ position:absolute;
     font-weight: 600;
 }
 
-.quiz_box section .option_list{
+.quiz_box section .option_list,
+section .word-input-box{
     padding: 20px 0;
     display: block;
 }
 
-section .option_list .option{
+
+section .option_list .option,
+.word-input
+{
     background: aliceblue;
     border: 1px solid #84c5fe;
     border-radius: 5px;
@@ -248,6 +252,56 @@ section .option_list .option{
     cursor:pointer;
     transition: all 0.3s ease;
 }
+
+
+.word-input{
+    margin: 0;
+    outline:none;
+}
+
+ 
+.word-submit
+{
+    height:40px;
+    padding: 0 13px;
+    font-size:18px;
+    font-weight: 400;
+    border: none;
+    outline: none;
+    color:#fff;
+    background:#0984e3;
+    border-radius: 5px;
+    border: 1px solid #0984e3;
+    cursor:pointer;
+    transition:all 0.3s ease;
+}
+.word-submit:hover{
+    background:#0770c0;
+}
+
+section .word-input-box{
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 30px;
+
+}
+section .word-input-box .word-input{
+    margin-right: 30px;
+    width: 80%;
+    
+}
+
+section .msg{
+    font-size: 16px;
+    font-weight: 600;
+    margin: 10px 6px;
+    color:#0984e3;
+    /* display: none; */
+}
+
+
+
 section .option_list .option:hover{
     color: #004085;
     background: #cce5ff;
@@ -294,7 +348,9 @@ section .option_list .option:hover{
     background:#f5c6cb;
 }
 
-.option_list .option.disabled{
+.option_list .option.disabled,
+.word-input-box.disabled
+{
     pointer-events: none;
 }
 
@@ -334,6 +390,7 @@ footer .next_btn{
     cursor:pointer;
     transition:all 0.3s ease;
 }
+
 footer .next_btn:hover{
     background:#0770c0;
 }
@@ -389,3 +446,4 @@ footer .next_btn:hover{
     cursor:pointer;
     transition:all 0.3s ease;
 }
+
