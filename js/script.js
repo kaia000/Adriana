@@ -19,6 +19,69 @@ const timeOff = quiz_box.querySelector("header .time_text");
 
 
 
+// let audio_list = document.querySelector(".quiz_box .audio_list");
+let audio_list = ['media/1.mp3','media/2.mp3','media/3.mp3','media/4.mp3','media/5.mp3'];
+let audio = document.querySelector(".quiz_box .audio_list .audio");
+let audio_buttons = document.querySelector(".quiz_box section .audio_buttons");
+const playPauseBTN = document.querySelector(".quiz_box .audio_buttons .audio_btn1");
+const stopBTN = document.querySelector(".quiz_box .audio_buttons .audio_btn2");
+
+
+let iconPlay = '<div class="iconPlay"><i class="fas fa-play"></i></div>';
+let iconPause = '<div class="iconPause"><i class="fas fa-pause"></i></div>';
+let iconStop = '<div class="iconPause"><i class="fas fa-pause"></i></div>';
+let audio_count = 0;
+
+
+
+playPauseBTN.onclick = ()=>{
+    playPause();
+}
+stopBTN.onclick = ()=>{
+    stop();
+}
+
+function playPause(){
+    if(audio_count == 0){
+            audio_count = 1;
+            audio.src = audio_list[que_count];
+            audio.play();
+            playPauseBTN.innerHTML = 'Pause'+ iconPause;
+    }else{
+            audio_count = 0;
+            audio.src = audio_list[que_count];
+
+            audio.pause();
+            playPauseBTN.innerHTML =  'Play'+ iconPlay;
+
+    }
+    
+}
+
+function stop(){
+    playPause();
+    audio.src = audio_list[que_count];
+    audio.pause();
+    audio.currentTime = 0;
+    playPauseBTN.innerHTML =  'Play'+ iconPlay;
+
+}
+
+function off(){
+    // document.querySelector(".quiz_box section .audio_buttons .audio_btn1").disabled = true;
+    playPauseBTN.disabled = true;
+    stopBTN.disabled = true;
+    audio.pause();
+}
+
+function on(){
+    playPauseBTN.disabled = false;
+    stopBTN.disabled = false;
+    playPauseBTN.innerHTML =  'Play'+ iconPlay;
+    
+
+}
+
 
 // if start quiz button clicked
 start_btn1.onclick = ()=>{
@@ -39,6 +102,7 @@ continue_btn.onclick = ()=>{
     info_box.classList.remove("activeInfo"); //hide the info box
     quiz_box.classList.add("activeQuiz"); //show the quiz box
     showQuestions2(0);
+
     queCounter(1);
     startTimer(15);
     startTimerLine(0);
@@ -93,7 +157,7 @@ word_submit.onclick = ()=>{
 
         next_btn.style.display = "block";
         word_input_box.classList.add("disabled");
-
+        off();
 
         timeOff.textContent = "Time Left";
         word_input.value="";
@@ -118,7 +182,11 @@ next_btn.onclick = ()=>{
         que_count++;
         que_numb++;
         showQuestions2(que_count);
+        on();
+        
 
+
+        
         queCounter(que_numb);
         clearInterval(counter);
         startTimer(timeValue);
@@ -185,7 +253,7 @@ function inputAns(answer){
 
         }
 }
-   
+
 
 
 
@@ -230,6 +298,7 @@ function startTimer(time){
             next_btn.style.display = "block";
             msg.innerHTML = "time's up!";
             next_btn_value(que_count);
+            off();
 
 
         }
